@@ -16,13 +16,19 @@ export async function POST(req: NextRequest) {
     );
 
     return NextResponse.json(response.data, { status: 200 });
-  } catch (error: any) {
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return NextResponse.json(
+        {
+          message: error.response?.data?.message || 'Login failed',
+        },
+        { status: error.response?.status || 500 }
+      );
+    }
+
     return NextResponse.json(
-      {
-        message:
-          error?.response?.data?.message || 'Login failed',
-      },
-      { status: error?.response?.status || 500 }
+      { message: 'Login failed' },
+      { status: 500 }
     );
   }
 }

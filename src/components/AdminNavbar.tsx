@@ -1,6 +1,6 @@
 'use client';
 
-import { AppBar, Toolbar, Typography, Button, Box, IconButton, Tooltip } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, IconButton, Tooltip } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';

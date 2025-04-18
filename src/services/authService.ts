@@ -1,3 +1,4 @@
+import axios from "axios";
 import api from "./api";
 
 export const login = async (email: string, password: string) => {
@@ -10,11 +11,17 @@ export const login = async (email: string, password: string) => {
     } else {
       return { success: false, message: 'Invalid response from server' };
     }
-  } catch (error: any) {
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error)) {
+      return {
+        success: false,
+        message: error.response?.data?.message || 'Invalid login credentials',
+      };
+    }
+
     return {
       success: false,
-      message:
-        'invalid',
+      message: 'An unknown error occurred',
     };
   }
 };

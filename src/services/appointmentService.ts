@@ -1,6 +1,5 @@
 // services/appointment.service.ts
 import api from './api';
-import { getToken } from './authService';
 
 export const getAppointments = async () => {
   try {

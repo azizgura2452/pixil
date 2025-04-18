@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Fab
               color="primary"
               aria-label="language selector"
-              onClick={(e) => setLanguage(language === 'en' ? 'ar' : 'en')}
+              onClick={() => setLanguage(language === 'en' ? 'ar' : 'en')}
             >
               {language === 'en' ? (
                 <Typography variant="h6" color="white">عربي</Typography> // Show "AR" if language is "en"

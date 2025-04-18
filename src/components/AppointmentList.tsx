@@ -1,8 +1,11 @@
 'use client';
 
-import { Box, Card, CardContent, CardMedia, Grid, Typography, Chip } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { Box, Card, CardContent, CardMedia, Grid, Typography, Chip, CircularProgress } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { getToken } from '@/services/authService';
+import { getAppointments } from '@/services/appointmentService';
 
 interface IAppointment {
   datetime: string;
@@ -12,18 +15,36 @@ interface IAppointment {
   imageUrl: string | null;
 }
 
-interface AppointmentListProps {
-  appointments: IAppointment[];
-}
-
-export default function AppointmentList({ appointments }: AppointmentListProps) {
+export default function AppointmentList() {
+  const [appointments, setAppointments] = useState<IAppointment[]>([]);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { t } = useTranslation();
 
+  useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      router.push('/login');
+      return;
+    }
+
+    getAppointments()
+      .then((data) => setAppointments(data))
+      .catch(() => router.push('/login'))
+      .finally(() => setLoading(false));
+  }, [router]);
+
   const handleCardClick = (id: string) => {
-    // Redirect to the appointment details page (use the appointment ID in the URL)
     router.push(`/appointments/${id}`);
   };
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box p={4}>
@@ -32,7 +53,7 @@ export default function AppointmentList({ appointments }: AppointmentListProps) 
       </Typography>
       <Grid container spacing={3}>
         {appointments.map((appt, index) => (
-          <Grid key={index}>
+          <Grid  key={index}>
             <Card onClick={() => handleCardClick(appt.name)} sx={{ cursor: 'pointer' }}>
               {appt.imageUrl ? (
                 <CardMedia
