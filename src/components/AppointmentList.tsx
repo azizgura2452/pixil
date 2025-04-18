@@ -32,7 +32,7 @@ export default function AppointmentList({ appointments }: AppointmentListProps) 
       </Typography>
       <Grid container spacing={3}>
         {appointments.map((appt, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid key={index}>
             <Card onClick={() => handleCardClick(appt.name)} sx={{ cursor: 'pointer' }}>
               {appt.imageUrl ? (
                 <CardMedia

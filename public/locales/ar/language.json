@@ -11,5 +11,6 @@
     "Pending": "قيد الانتظار",
     "Canceled": "ملغى",
     "Completed": "مكتمل",
-    "noImage": "لا توجد صورة"
+    "noImage": "لا توجد صورة",
+    "requiredCredentials": "من فضلك املأ الحقلين"
 }

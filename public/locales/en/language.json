@@ -11,6 +11,7 @@
     "Pending": "Pending",
     "Canceled": "Canceled",
     "Completed": "Completed",
-    "noImage": "No Image"
+    "noImage": "No Image",
+    "requiredCredentials": "Please fill in both fields"
   }
   

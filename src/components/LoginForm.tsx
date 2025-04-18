@@ -21,7 +21,7 @@ export default function LoginForm() {
     setErrorMsg('');
 
     if (!email || !password) {
-      setErrorMsg('Please fill in both fields');
+      setErrorMsg(t('requiredCredentials'));
       return;
     }
 
@@ -30,7 +30,7 @@ export default function LoginForm() {
     if (result.success) {
       router.push('/appointments'); // ✅ redirect on success
     } else {
-      setErrorMsg(result.message || 'Invalid credentials');
+      setErrorMsg(t('invalidLogin'));
     }
   };
 
