@@ -1,7 +1,14 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Box, Button, TextField, Paper, Alert } from '@mui/material';
+import { 
+  Box, 
+  Button, 
+  TextField, 
+  Paper, 
+  Alert,
+  CircularProgress 
+} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, InputAdornment } from '@mui/material';
 import { styles } from '@/styles/login.styles';
@@ -15,22 +22,30 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false); // New state for loading
   const router = useRouter();
 
   const handleLogin = async () => {
     setErrorMsg('');
+    setIsLoggingIn(true); // Start loading
 
     if (!email || !password) {
       setErrorMsg(t('requiredCredentials'));
+      setIsLoggingIn(false);
       return;
     }
 
-    const result = await login(email, password);
-
-    if (result.success) {
-      router.push('/appointments'); // ✅ redirect on success
-    } else {
-      setErrorMsg(t('invalidLogin'));
+    try {
+      const result = await login(email, password);
+      if (result.success) {
+        router.push('/appointments');
+      } else {
+        setErrorMsg(t('invalidLogin'));
+      }
+    } catch (error) {
+      setErrorMsg(t('loginError'));
+    } finally {
+      setIsLoggingIn(false); // Stop loading in all cases
     }
   };
 
@@ -52,6 +67,7 @@ export default function LoginForm() {
           sx={styles.input}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoggingIn} // Disable during loading
         />
 
         <TextField
@@ -62,10 +78,15 @@ export default function LoginForm() {
           sx={styles.input}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          disabled={isLoggingIn} // Disable during loading
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
+                <IconButton 
+                  onClick={() => setShowPassword((prev) => !prev)} 
+                  edge="end"
+                  disabled={isLoggingIn} // Disable during loading
+                >
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
@@ -78,8 +99,13 @@ export default function LoginForm() {
           fullWidth
           sx={styles.button}
           onClick={handleLogin}
+          disabled={isLoggingIn} // Disable during loading
         >
-          {t('login')}
+          {isLoggingIn ? (
+            <CircularProgress size={24} color="inherit" />
+          ) : (
+            t('login')
+          )}
         </Button>
       </Paper>
     </Box>
