@@ -1,0 +1,15 @@
+{
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "login": "تسجيل الدخول",
+    "invalidLogin": "بيانات الدخول غير صحيحة",
+    "adminPanel": "لوحة التحكم",
+    "appointments": "المواعيد",
+    "appointmentDetail": "تفاصيل الموعد",
+    "appointmentDateTime": "تاريخ ووقت الموعد",
+    "status": "الحالة",
+    "Pending": "قيد الانتظار",
+    "Canceled": "ملغى",
+    "Completed": "مكتمل",
+    "noImage": "لا توجد صورة"
+}

@@ -1,0 +1,16 @@
+{
+    "email": "Email",
+    "password": "Password",
+    "login": "Login",
+    "invalidLogin": "Invalid credentials",
+    "adminPanel": "Admin Panel",
+    "appointments": "Appointments",
+    "appointmentDetail": "Appointment Detail",
+    "appointmentDateTime": "Appointment Date & Time",
+    "status": "Status",
+    "Pending": "Pending",
+    "Canceled": "Canceled",
+    "Completed": "Completed",
+    "noImage": "No Image"
+  }
+  
