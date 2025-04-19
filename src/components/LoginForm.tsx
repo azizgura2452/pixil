@@ -43,6 +43,7 @@ export default function LoginForm() {
         setErrorMsg(t('invalidLogin'));
       }
     } catch (error) {
+      console.log(error);
       setErrorMsg(t('loginError'));
     } finally {
       setIsLoggingIn(false); // Stop loading in all cases

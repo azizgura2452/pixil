@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'; // Add this to prevent static generation
 
-import { redirect } from 'next/navigation';
+import LoginForm from '@/components/LoginForm';
 
 export default function Home() {
-  redirect('/login');
+  return <LoginForm />
 }
